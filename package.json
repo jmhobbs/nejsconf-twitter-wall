@@ -1,5 +1,5 @@
 {
-  "name": "confurrent-nejsconf",
+  "name": "nejsconf-twitter-wall",
   "version": "1.0.0",
   "description": "Tweetwall for NEJS Conference",
   "main": "index.js",
@@ -13,6 +13,6 @@
     "hiredis": "^0.2.0",
     "redis": "^0.12.1",
     "socket.io": "^1.3.5",
-    "twitter-streamer": "git+https://github.com/jmhobbs/twitter-streamer.git#patch/disconnects-on-keepalive"
+    "twitter-streamer": "git+https://github.com/itsjamie/twitter-streamer.git#49b938a4001884c214ab2c5a3984bfe99bf56729"
   }
 }

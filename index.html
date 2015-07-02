@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <title>#NEJSCONF</title>
+    <style>
+      * {
+        background-color: #e9ca20;
+      }
+      img.avatar {
+        float: left;
+        margin: 0 10px;
+      }
+      div.tweet {
+        margin: 10px 0;
+      }
+      div.clear {
+        clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="messages"></div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      $(function () {
+          var $messages = $("#messages");
+
+          function prependTweet (tweet) {
+            var tweetDiv = $("<div/>").addClass("tweet");
+            tweetDiv.append($("<span/>").addClass("body").text(tweet["text"]));
+            tweetDiv.prepend($("<img/>").addClass("avatar").attr("src", tweet["user"]["profile_image_url"]));
+            tweetDiv.append($("<div/>").addClass("clear"));
+            $messages.prepend(tweetDiv);
+          }
+          
+          $.getJSON("/recent.json", function (obj) {
+            obj["tweets"].forEach(function (j) { prependTweet(JSON.parse(j)); });
+          });
+
+          var socket = io();
+          socket.on('tweet', function(msg){
+            console.log(msg);
+            prependTweet(msg);
+          });
+      });
+    </script>
+  </body>
+</html>

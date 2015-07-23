@@ -30,6 +30,8 @@ process.on('SIGHUP', cleanup);
 process.on('SIGTERM', cleanup);
 
 stream.on('tweet', function(tweet) {
+  // Ignore RT's and potentially scandalous content
+  if(tweet["possibly_sensitive"] || tweet["retweeted"]) { return; }
   io.emit('tweet', tweet);
   client.rpush("confurrent:nejsconf", JSON.stringify(tweet));
 });
